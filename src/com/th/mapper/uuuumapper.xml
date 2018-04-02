@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.th.dao.uumapper">
+	<select id="findbysome" resultType="com.th.entity.user">
+		select * from user where uname= #{arg0} 
+		<if test="arg1 !=null">  
+        and upassword=#{arg1}  
+   		</if> 
+	</select>
+	<insert id="adduser">
+		insert into user values (null,#{uname},#{upassword},#{factoryname},#{factorynum})
+	</insert>
+</mapper>
