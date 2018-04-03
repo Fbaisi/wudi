@@ -24,8 +24,14 @@
 					<td>网页标题</td>
 					<td><input type="text">最多写20个字</td>
 				</tr>
-				<tr></tr>
-				<tr></tr>
+				<tr>
+					<td>url地址</td>
+					<td><input type="text"></td>
+				</tr>
+				<tr>
+					<td>网页描述</td>
+					<td><textarea rows="3" cols="2"></textarea></td>
+				</tr>
 			</table>
 		</div>
 	</div>
