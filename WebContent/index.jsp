@@ -19,7 +19,9 @@
 					type : "POST",
 					contentType : 'application/json',
 					url : 'findbyname',
-					data : uname = unamee,
+					data : JSON.stringify({
+						"uname" : unamee
+					}),
 					dataType : 'json',
 					success : function(data) {
 						if (data.num == "0") {

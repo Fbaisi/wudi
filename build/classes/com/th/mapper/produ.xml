@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.th.dao.produMapper">
+  	<resultMap type="com.th.entity.produ" id="produ">
+		<id column="pid" property="pid"/>
+		<result column="key" property="key"/>
+		<result column="p_title" property="p_title"/>
+		<result column="p_url" property="p_url"/>
+		<result column="price" property="price"/>
+		<result column="p_text" property="p_text"/>
+		<association property="uid" column="uid" select="finduser"></association>
+		<association property="typee" column="typee" select="findtypee"></association>
+		<collection property="pricelist" column="key" javaType="ArrayList" select="findprilist"></collection>
+	</resultMap>
+	 	<resultMap type="com.th.entity.produ" id="produfor">
+		<result column="key" property="key"/>
+		<collection property="pricelist" column="key" javaType="ArrayList" select="findprilist"></collection>
+	</resultMap>
+	<select id="findtypee" resultType="com.th.entity.typee">
+		select * from typee t where t.t_id=#{typee} 
+	</select>
+  	<select id="findbykey" resultMap="produfor">
+  		select p.key  from produ  p where p.key=#{arg0} limit 0,1
+  	</select>
+  	<select id="findbysome" resultMap="user">
+		select * from user where uid=#{uid}
+	</select>
+	<select id="findprilist" resultType="java.lang.Double">
+		select p.price from produ p where p.key = #{key} order by price DESC limit 0,3
+	</select>
+	<resultMap type="com.th.entity.user" id="user">
+		<id column="uid" property="uid"/>
+		<result column="uname" property="uname"/>
+		<result column="upassword" property="upassword"/>
+		<result column="factoryname" property="factoryname"/>
+		<result column="factorynum" property="factorynum"/>
+	</resultMap>
+	<insert id="addprodu" parameterType="ArrayList" keyProperty="pid">
+		insert into produ values 
+		<foreach collection="list" item="item" separator=",">
+			(null,#{item.key},#{item.typee.t_id},#{item.p_title},#{item.p_url},#{item.p_text},#{item.price},#{item.uid.uid})
+		</foreach>
+	</insert>
+  </mapper>

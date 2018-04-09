@@ -3,7 +3,24 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.th.dao.uumapper">
-	<select id="findbysome" resultType="com.th.entity.user">
+	<resultMap type="com.th.entity.user" id="user">
+		<id column="uid" property="uid"/>
+		<result column="uname" property="uname"/>
+		<result column="upassword" property="upassword"/>
+		<result column="factoryname" property="factoryname"/>
+		<result column="factorynum" property="factorynum"/>
+		<collection property="produ" column="uid" javaType="ArrayList" ofType="com.th.entity.produ" select="findprodu"></collection>
+	</resultMap>
+	<resultMap type="com.th.entity.produ" id="produ">
+		<id column="pid" property="pid"/>
+		<result column="key" property="key"/>
+		<result column="p_title" property="p_title"/>
+		<result column="p_url" property="p_url"/>
+		<result column="price" property="price"/>
+		<result column="p_text" property="p_text"/>
+		<association property="typee" column="typee" select="findtypee"></association>
+	</resultMap>
+	<select id="findbysome" resultMap="user">
 		select * from user where uname= #{arg0} 
 		<if test="arg1 !=null">  
         and upassword=#{arg1}  
@@ -12,4 +29,10 @@
 	<insert id="adduser">
 		insert into user values (null,#{uname},#{upassword},#{factoryname},#{factorynum})
 	</insert>
+	<select id="findprodu" resultMap="produ">
+		select * from produ where uid = #{arg0}
+	</select>
+	<select id="findtypee" resultType="com.th.entity.typee">
+		select * from typee where t_id=#{typee} 
+	</select>
 </mapper>

@@ -1,11 +1,14 @@
 package com.th.entity;
 
+import java.util.List;
+
 public class user {
 	private Integer uid;
 	private String uname;
 	private String factoryname;
 	private String factorynum;
 	private String upassword;
+	private List<produ> produ;
 	public Integer getUid() {
 		return uid;
 	}
@@ -36,10 +39,19 @@ public class user {
 	public void setUpassword(String upassword) {
 		this.upassword = upassword;
 	}
+	
+	public List<produ> getProdu() {
+		return produ;
+	}
+	public void setProdu(List<produ> produ) {
+		this.produ = produ;
+	}
 	@Override
 	public String toString() {
 		return "user [uid=" + uid + ", uname=" + uname + ", factoryname=" + factoryname + ", factorynum=" + factorynum
-				+ ", upassword=" + upassword + "]";
+				+ ", upassword=" + upassword + ", produ=" + produ + "]";
 	}
+
+	
 	
 }
